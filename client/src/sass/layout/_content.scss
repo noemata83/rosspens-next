@@ -1,0 +1,24 @@
+.main {
+  padding: 8rem 0px 0px 0px;
+  margin: 0px 0px;
+  position: relative;
+  @include respond(tab-port) {
+    padding: 0;
+  }
+}
+
+.sort {
+  text-align: center;
+  font-family: "Rochester", cursive;
+  font-size: 8rem;
+  font-weight: 300;
+  margin: 2rem;
+}
+
+.divider {
+  display: block;
+  margin: 0 auto;
+  width: 65%;
+  max-width: 950px;
+}
+

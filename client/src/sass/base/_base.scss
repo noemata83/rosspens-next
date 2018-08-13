@@ -1,0 +1,43 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    margin: 0;
+    height: 100%;
+    
+    @include respond(tab-land) {
+        font-size: 56.25%;  // 1rem = 9px
+    }
+    
+    @include respond(tab-port) {
+        font-size: 50%; // 1 rem = 8px
+    }
+    
+    @include respond(big-desktop) {
+        font-size: 75%;
+    }
+}
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+    background-color: $background;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+    list-style-type: none;
+    list-style-position: outside;
+    overflow: hidden;
+}

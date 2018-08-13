@@ -1,0 +1,205 @@
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $color-primary;
+    width: 100%;
+    color: $text-light;
+    z-index:1000;
+    padding: 0 1rem .5rem 1rem;
+    @include respond(tab-port) {
+      position: relative;
+      display: block;
+    }
+    a {
+        color: $text-light;
+        &:hover {
+            color: $text-highlight;
+            cursor: pointer;
+        }
+    }
+    .menu-button {
+      height: 3.6rem;
+      width: 4rem;
+      display: none;
+      border: 1px solid #f5f5f5;
+      border-radius: 5px;
+      position: relative;
+      text-align: center;
+      @include respond(tab-port) {
+        vertical-align: text-bottom;
+        margin: 0px 10px;
+        display: inline-block;
+      }
+    }
+    
+    .menu-bar {
+        margin-top: 1.6rem;
+        position: relative;
+        &,
+        &:before,
+        &:after {
+            width: 3rem;
+            height: 2px;
+            background-color: $text-light;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            transition: all .2s;
+        }
+        
+        &::before { top: -.8rem; }
+        &::after {top: .8rem; }
+    }
+    
+    .change .menu-bar::before{
+        top: 0;
+        transform: rotate(135deg);
+    }
+    
+    .change .menu-bar {
+      background-color: transparent;
+    }
+    
+    .change .menu-bar::after {
+        top: 0;
+        transform: rotate(-135deg);
+    }
+    
+    .grid {
+      [class^="grid__"] {
+        float: left;
+        padding: 0rem;
+        height: 100%;
+        &:not(:last-child) {
+            margin-right: $gutter-horizontal;
+        }
+        @include respond(tab-port) {
+            // float:none;
+            width: 100%;
+            padding: 0;
+        };
+      }
+    }
+    #collapsible {
+      height: 5rem;
+      display: flex;
+      justify-content: space-around;
+      transition: all .3s;
+      @include respond(tab-port) {
+          height: auto;
+          display: none;
+      }
+      &.expanded {
+        display: block;
+         a {
+           display: block;
+         }
+        }
+    }
+    
+    .brand {
+      display: inline-block;
+      font-family: 'Rochester', cursive;
+      font-size: 4rem;
+      margin: 0px 4rem 0px 1rem;
+    }
+    .menu-item {
+      color: $text-light;
+      display: inline-block;
+      font-size: 2.5rem;
+      margin-top: 2rem;
+    }
+    
+}
+
+.dropdown {
+  display: inline-block;
+  position:relative;
+  
+  @include respond(tab-port) {
+    width: 100%;
+  }
+  &__btn {
+    display: inline;
+    border: none;
+  }
+  
+  &__content {
+    box-sizing: border-box;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    @include respond(tab-port) {
+      display: none;
+    }
+    position: absolute;
+    top: 100%;
+    left: -1rem;
+    width: 40rem;
+    transform: translateY(-2.1em);
+    z-index: 1;
+    transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+    a {
+      font-size: 1.6rem;
+      border-style: none;
+      color: $text-light;
+      padding: 1.2rem 1.6rem;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+      &:hover {
+        color: $text-highlight;
+      }
+    }
+    @include respond(tab-port) {
+      position: relative;
+      width: 100%;
+    }
+  }
+  
+  &__list {
+    background: $color-primary;
+    width: 40rem;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    @include respond(tab-port) {
+      width: 100%;
+    }
+  }
+  
+  &__sub-list {
+    flex-basis: 50%;
+    width: 20rem;
+    a {
+      @include respond(tab-port) {
+        display: block;
+      }
+    }
+    @include respond(tab-port) {
+      display:block;
+    }
+  }
+  
+  &__columns {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    @include respond(tab-port) {
+      display: block;
+    }
+  }
+}
+  .show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+    transform: translateY(6px);
+    transition-delay: 0s, 0s, 0.3s;
+  }
