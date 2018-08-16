@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
+const { manufacturerSchema } = require('./manufacturer');
 
 const penSchema = new mongoose.Schema({
    inventorynumber: String,
-   _manufacturer: {
-     type: mongoose.Schema.Types.ObjectId,
-     ref: 'Manufacturer',
-   },
+   _manufacturer: manufacturerSchema,
    title: String,
    type: String,
    slug: {

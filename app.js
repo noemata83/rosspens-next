@@ -4,7 +4,7 @@ const mongoose = require('mongoose'),
   bodyParser = require('body-parser'),
   passport = require('passport'),
   localStrategy = require('passport-local'),
-  User = require('./models/user');
+  User = require('./api/models/user');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/rosspens-next', { useNewUrlParser: true });
