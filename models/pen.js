@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const penSchema = new mongoose.Schema({
    inventorynumber: String,
-   maker: String,
+   _manufacturer: {
+     type: mongoose.Schema.Types.ObjectId,
+     ref: 'Manufacturer',
+   },
    title: String,
    type: String,
    slug: {
