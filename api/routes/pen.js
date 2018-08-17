@@ -193,12 +193,12 @@
 module.exports = (app) => {
   const penController = require('../controllers/pen');
 
-  app.route('/pens')
-    .create(penController.listPens)
+  app.route('/api/pens')
+    .get(penController.listPens)
     .post(penController.createPen);
 
-  app.route('/pens/:slug')
-    .get(penController.fetchPen)
+  app.route('/api/pens/:slug')
+    .get(penController.fetchThePen)
     .put(penController.updatePen)
     .delete(penController.deletePen);
 }

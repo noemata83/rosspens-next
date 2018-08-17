@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
-  Pen = mongoose.model('Pens'),
-  Manufacturer = mongoose.model('Manufacturers');
+  Pen = mongoose.model('Pen'),
+  Manufacturer = mongoose.model('Manufacturer'),
+  slugify = require('slugify');
 
 
 const listPens = async (req, res) => {
@@ -26,8 +27,10 @@ const createPen = async (req, res) => {
       images: req.body.imageURLs.split(','),
       description: req.body.description,
     };
-    newPen._manufacturer = await Manufacturer.find({ name: req.manufacturer.name});
+    const foundMaker = await Manufacturer.findOne({ name: req.body.manufacturer });
+    newPen._manufacturer = foundMaker;
     const createdPen = await Pen.create(newPen);
+    res.json(createdPen);
   } catch(err) {
     res.json({
       error: `There was an error: ${err}`,
@@ -59,7 +62,7 @@ const fetchThePen = async (req,res) => {
 
 const deleteImages = async (deletesString, foundPen) => {
   const prevImages = foundPen.images.slice();
-  if (!deleteString) {
+  if (!deletesString) {
     return prevImages;
   }
   const deletes = deletesString.split(',').map(x => parseInt(x));
@@ -77,10 +80,10 @@ const deleteImages = async (deletesString, foundPen) => {
 const updatePen = async (req, res) => {
   try {
     const foundPen = await Pen.findOne({ slug: req.params.slug });
-    const filteredImages = deleteImages(req.body.deleteImages, foundPen);
+    const filteredImages = await deleteImages(req.body.deleteImages, foundPen);
     const images = req.body.newImages ? filteredImages.concat([...req.body.newImages.split(',')]) : filteredImages;
-    const penUpdates = { ...req.body.pen, images };
-    const updatedPen = Pen.findOneAndUpdate(foundPen, penUpdates, { new: true });
+    const penUpdates = { ...foundPen._doc, ...req.body, images };
+    const updatedPen = await Pen.findOneAndUpdate({ slug: req.params.slug }, penUpdates, { new: true });
     res.json(updatedPen);
   } catch(err) {
     res.json({
@@ -104,6 +107,7 @@ const deletePen = async (req, res) => {
 
 module.exports = {
   listPens,
+  createPen,
   fetchThePen,
   fetchNewPens,
   updatePen,
